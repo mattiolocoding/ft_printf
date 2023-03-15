@@ -6,12 +6,12 @@
 /*   By: mcarbone <mcarbone@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 16:06:07 by mcarbone          #+#    #+#             */
-/*   Updated: 2023/03/15 18:24:57 by mcarbone         ###   ########.fr       */
+/*   Updated: 2023/03/15 19:02:00 by mcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+//ciao
 int	ft_printchar(char s)
 {
 	return (write(1, &s, 1));
