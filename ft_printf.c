@@ -6,15 +6,16 @@
 /*   By: mcarbone <mcarbone@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 16:06:07 by mcarbone          #+#    #+#             */
-/*   Updated: 2023/03/15 19:02:00 by mcarbone         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:07:37 by mcarbone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-//ciao
+
 int	ft_printchar(char s)
 {
-	return (write(1, &s, 1));
+	write(1, &s, 1);
+	return (1);
 }
 
 int	ft_printstr(char *str)
@@ -29,15 +30,18 @@ int	ft_printstr(char *str)
 	return (i);
 }
 
-int	ft_formats(va_list *args, char c, int *sum)
+int	ft_formats(const char *str, int i, va_list *args)
 {
-	if (c == 's')
-		return (ft_printstr(va_arg(*args, char *)));
-	if (c == '%')
-		return (ft_printchar('%'));
-	if (c == 'd' || c == 'i')
-		return (ft_printnbr(va_arg(*args, int), sum));
-	return (0);
+	int	sum;
+
+	sum = 0;
+	if (str[i]== 's')
+		sum += ft_printstr(va_arg(*args, char *));
+	else if (str[i] == '%')
+		sum += ft_printchar('%');
+	else if (str[i] == 'd' || str[i] == 'i')
+		sum += ft_printnbr(va_arg(*args, int), 0);
+	return (sum);
 }
 
 int	ft_printf(const char *str, ...)
@@ -53,7 +57,7 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[i] == '%')
 		{
-			sum += ft_formats(&args, str[++i], &sum);
+			sum += ft_formats(str, ++i, &args);
 			i++;
 		}
 		else
@@ -66,16 +70,16 @@ int	ft_printf(const char *str, ...)
 int main()
 {
 	int a = -210;
-	char *c = "ciaoooooooooooooooooooo";
+//	char *c = "ciaoooooooooooooooooooo";
 	//printf("%i", ft_printf("%s%s", c, c));
 	//printf("%i", printf("ciao\n"));
 	//printf("%d", ft_printf("ciao\n"));
 
-	ft_printf("%d", printf("%s", c));
+//	ft_printf("%d", printf("%s", c));
 	//printf("%d", ft_printf("%%"));
 	//ft_printf("%s", NULL);
 	//s
-	//ft_printf("%d", printf("%d/", a));
+	printf("%d", ft_printf("%d", a));
 	//ft_printf("%d", a);
 }
 
